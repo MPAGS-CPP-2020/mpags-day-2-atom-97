@@ -34,3 +34,6 @@
 *.exe
 *.out
 *.app
+
+#the entirety of the build directory
+./build
