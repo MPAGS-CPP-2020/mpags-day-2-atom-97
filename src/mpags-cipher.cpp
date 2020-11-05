@@ -7,6 +7,7 @@
 // transformChar function
 #include "TransformChar.hpp"
 #include "ProcessCommandLine.hpp"
+#include "RunCaesarCipher.hpp"
 
 // Main function of the mpags-cipher program
 int main(int argc, char* argv[])
@@ -17,11 +18,13 @@ int main(int argc, char* argv[])
   // Options that might be set by the command-line arguments
   bool helpRequested {false};
   bool versionRequested {false};
+  bool encrypt {false};
   std::string inputFile {""};
   std::string outputFile {""};
+  size_t key{0};
 
   // Terminate the funciton if CmdArgs gave errors, indicated failure by returning 1
-  if (!processCommandLine(cmdLineArgs, helpRequested, versionRequested, inputFile, outputFile)){
+  if (!processCommandLine(cmdLineArgs, helpRequested, versionRequested, encrypt, key ,inputFile, outputFile)){
     return 1;
   }
   else{
@@ -76,11 +79,12 @@ int main(int argc, char* argv[])
       }
       in_file.close();
     }
+    inputText=runCaesarCipher(inputText, key, encrypt);
 
     std::ofstream out_file{outputFile, std::ios_base::app};
     // Output the transliterated text
     // Warn that output file option not yet implemented
-    if (!out_file.is_open()) {
+    if (!out_file.good()) {
       out_file.close();
       std::cout << "[warning] output to file ('"
                 << outputFile

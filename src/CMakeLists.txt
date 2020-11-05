@@ -13,6 +13,7 @@ add_executable(mpags-cipher
     mpags-cipher.cpp
     MPAGSCipher/TransformChar.cpp
     MPAGSCipher/ProcessCommandLine.cpp
+    MPAGSCipher/RunCaesarCipher.cpp
     )
 
 #tell the compiler where to look for header/src files
